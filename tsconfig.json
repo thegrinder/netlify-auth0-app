@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "ES2020",
+    "strict": true,
+    "jsx": "react",
+    "allowJs": false,
+    "baseUrl": "src",
+    "resolveJsonModule": true,
+    "paths": {
+      "~/*": ["*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

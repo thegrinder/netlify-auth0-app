@@ -1,0 +1,47 @@
+name: Cypress
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Create .env
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          envkey_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+
+      - name: Create cypress.env.json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: 'cypress.env.json'
+          json: ${{ secrets.CYPRESS_ENV_JSON }}
+
+      - name: Install dependencies
+        env:
+          NPM_TOKEN: ${{ secrets.PAT }}
+        run: npm ci
+
+      - name: Install cypress
+        run: npm run cy:install
+
+      - name: Run cypress tests
+        run: npm run cy:ci
