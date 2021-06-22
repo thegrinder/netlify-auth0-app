@@ -1,4 +1,4 @@
-name: i18n
+name: Netlify
 
 on:
   push:
@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Create .env
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          envkey_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
 
       - name: Install dependencies
         env:
