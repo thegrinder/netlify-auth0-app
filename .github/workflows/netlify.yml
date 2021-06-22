@@ -7,22 +7,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [16.x]
-
+        environment: ['dev', 'production']
+    environment: ${{ matrix.environment }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
 
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
+
         with:
           envkey_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           envkey_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
