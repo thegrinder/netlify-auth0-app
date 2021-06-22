@@ -28,7 +28,11 @@ export const Navigation = () => {
           {isAuthenticated ? (
             <button
               type="button"
-              onClick={() => logout()}
+              onClick={() =>
+                logout({
+                  returnTo: window.location.origin,
+                })
+              }
               className="opacity-70"
               aria-label={intl.formatMessage(messages.logout)}
             >
